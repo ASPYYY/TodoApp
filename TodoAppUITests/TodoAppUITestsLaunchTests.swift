@@ -8,6 +8,8 @@
 import XCTest
 
 final class TodoAppUITestsLaunchTests: XCTestCase {
+    
+    private var app: XCUIApplication!
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
@@ -15,11 +17,17 @@ final class TodoAppUITestsLaunchTests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app = XCUIApplication()
+    }
+    
+    override func tearDownWithError() throws {
+        app.terminate()
+        app = nil
+        try super.tearDownWithError()
     }
 
     @MainActor
     func testLaunch() throws {
-        let app = XCUIApplication()
         app.launch()
 
         // Insert steps here to perform after app launch but before taking a screenshot,
